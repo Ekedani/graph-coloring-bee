@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "iostream"
 
 using namespace std;
 
@@ -26,4 +27,10 @@ public:
     int getVerticesNum();
 
     bool isFullyColored();
+
+    void outColors(){
+        for(auto color : verticesColors){
+            cout << color << ' ';
+        }
+    }
 };

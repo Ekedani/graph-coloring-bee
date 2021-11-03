@@ -15,5 +15,6 @@ int main() {
         algorithm.runAlgorithm();
         algorithm.resetVisited();
     }
+    graph->outColors();
     return 0;
 }

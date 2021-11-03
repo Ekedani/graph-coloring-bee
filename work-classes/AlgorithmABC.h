@@ -3,6 +3,7 @@
 #include <ctime>
 #include "Graph.h"
 #include "iostream"
+#include <random>
 
 using namespace std;
 
@@ -16,8 +17,10 @@ private:
     Graph *graphToProcess;
     set<int> visitedVertices;
 
+    mt19937 randomMachine;
+
     //Returns current scout location
-    int moveScoutToRandom(int randomSeed);
+    int moveScoutToRandom();
 
     //Set color considering information about usedColors
     void colorVertex(int num);
@@ -36,6 +39,7 @@ public:
 
     explicit AlgorithmABC(Graph* graphToProcess){
         this->graphToProcess = graphToProcess;
+        this->randomMachine.seed(time(nullptr));
         for (int i = 0; i < graphToProcess->getVerticesNum(); ++i) {
             allColors.push_back(i);
         }
