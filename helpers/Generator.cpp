@@ -1,4 +1,5 @@
 #include "Generator.h"
+#include "iostream"
 
 bool **Generator::generateGraphMatrix(int verticesNum, int minDegree, int maxDegree) {
     auto result = new bool *[verticesNum];
@@ -14,14 +15,14 @@ bool **Generator::generateGraphMatrix(int verticesNum, int minDegree, int maxDeg
         for (int j = i + 1; j < verticesNum; ++j) {
             auto probability = rand() % verticesNum;
             //Of course, you can change probability, but I wouldn't recommend you
-            if (probability < 20 && connections[j] < maxDegree) {
+            if (probability < 15 && connections[j] < maxDegree) {
                 result[i][j] = true;
                 result[j][i] = true;
                 connections[i]++;
                 connections[j]++;
                 generatedConnections++;
             }
-            if(generatedConnections > maxDegree){
+            if(generatedConnections >= maxDegree){
                 break;
             }
         }
@@ -37,6 +38,9 @@ bool **Generator::generateGraphMatrix(int verticesNum, int minDegree, int maxDeg
                 }
             }
         }
+    }
+    for (int i = 0; i < verticesNum; ++i) {
+        cout << i << " vertex connections: " << connections[i] << '\n';
     }
     delete[] connections;
     return result;
