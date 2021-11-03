@@ -9,7 +9,9 @@ int main() {
     const int MAX_DEGREE = 30;
 
     auto graphMatrix = Generator::generateGraphMatrix(VERTICES_NUM, MIN_DEGREE,MAX_DEGREE);
-
+    auto graph = new Graph(graphMatrix, VERTICES_NUM);
+    auto algorithm = new AlgorithmABC(graph);
+    algorithm->runAlgorithm();
 
     return 0;
 }

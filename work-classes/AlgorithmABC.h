@@ -35,6 +35,9 @@ public:
 
     explicit AlgorithmABC(Graph* graphToProcess){
         this->graphToProcess = graphToProcess;
+        for (int i = 0; i < graphToProcess->getVerticesNum(); ++i) {
+            allColors.push_back(i);
+        }
     }
 
     void runAlgorithm(){

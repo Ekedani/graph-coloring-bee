@@ -61,7 +61,8 @@ vector<pair<int, int>> AlgorithmABC::calculateBeesToSend(vector<int> &destinatio
 }
 
 void AlgorithmABC::processVertex(int num, int beeNum) {
-    for (int i = 0; i < beeNum; ++i) {
+    auto neighborsAmount = graphToProcess->getVertex(num)->neighbors.size();
+    for (int i = 0; i < beeNum && i < neighborsAmount; ++i) {
         auto neighborNum = graphToProcess->getVertex(num)->neighbors[i];
         colorVertex(neighborNum);
     }

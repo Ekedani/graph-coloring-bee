@@ -39,9 +39,6 @@ bool **Generator::generateGraphMatrix(int verticesNum, int minDegree, int maxDeg
             }
         }
     }
-    for (int i = 0; i < verticesNum; ++i) {
-        cout << i << " vertex connections: " << connections[i] << '\n';
-    }
     delete[] connections;
     return result;
 }
