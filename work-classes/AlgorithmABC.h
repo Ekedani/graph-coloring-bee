@@ -2,6 +2,7 @@
 #include <set>
 #include <ctime>
 #include "Graph.h"
+#include "iostream"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ private:
     set<int> visitedVertices;
 
     //Returns current scout location
-    int moveScoutToRandom();
+    int moveScoutToRandom(int randomSeed);
 
     //Set color considering information about usedColors
     void colorVertex(int num);
@@ -46,6 +47,10 @@ public:
             auto parameters = calculateBeesToSend(destinations);
             destinations = sendForagers(parameters);
         }while(!graphToProcess->isFullyColored());
+        cout << "Chromatic num: " << usedColors.size() << '\n';
     }
 
+    void resetVisited(){
+        visitedVertices.clear();
+    }
 };

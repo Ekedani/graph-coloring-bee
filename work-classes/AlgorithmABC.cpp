@@ -1,8 +1,8 @@
 #include "AlgorithmABC.h"
 
-int AlgorithmABC::moveScoutToRandom() {
+int AlgorithmABC::moveScoutToRandom(int randomSeed) {
     int vertexNum = -1;
-    srand(time(nullptr));
+    srand(time(nullptr) + randomSeed);
     while (vertexNum == -1 && visitedVertices.size() != graphToProcess->getVerticesNum()){
         int randomAttempt = rand() % graphToProcess->getVerticesNum();
         if(!visitedVertices.contains(randomAttempt)){
@@ -33,7 +33,7 @@ void AlgorithmABC::colorVertex(int num) {
 vector<int> AlgorithmABC::getDestinations() {
     vector<int> destinations;
     for (int i = 0; i < SCOUTS_NUM; ++i) {
-        auto dest = moveScoutToRandom();
+        auto dest = moveScoutToRandom(i);
         if(dest == -1){
             return destinations;
         }
@@ -73,7 +73,7 @@ vector<int> AlgorithmABC::sendForagers(vector<pair<int, int>> &destinations) {
     vector<int> newScouts;
     for(auto destination : destinations){
         processVertex(destination.first, destination.second);
-        newScouts.push_back(moveScoutToRandom());
+        newScouts.push_back(moveScoutToRandom(42));
     }
     return newScouts;
 }

@@ -10,8 +10,10 @@ int main() {
 
     auto graphMatrix = Generator::generateGraphMatrix(VERTICES_NUM, MIN_DEGREE,MAX_DEGREE);
     auto graph = new Graph(graphMatrix, VERTICES_NUM);
-    auto algorithm = new AlgorithmABC(graph);
-    algorithm->runAlgorithm();
-
+    auto algorithm = AlgorithmABC(graph);
+    for (int i = 0; i < 1000; ++i) {
+        algorithm.runAlgorithm();
+        algorithm.resetVisited();
+    }
     return 0;
 }
