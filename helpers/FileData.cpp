@@ -1,7 +1,3 @@
-//
-// Created by User on 04.11.2021.
-//
-
 #include "FileData.h"
 
 pair<bool **, int> FileData::readMatrix() {

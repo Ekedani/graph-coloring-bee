@@ -38,3 +38,11 @@ bool Graph::isFullyColored() {
     }
     return true;
 }
+
+vector<int> Graph::getColors() {
+    return verticesColors;
+}
+
+void Graph::setColors(vector<int> backup) {
+    verticesColors = std::move(backup);
+}

@@ -29,26 +29,22 @@ public:
 
     bool isFullyColored();
 
-    void outColors(){
-        for(auto color : verticesColors){
-            cout << color << ' ';
+    void outputColors(){
+        cout << "Current color scheme:";
+        for (int i = 0; i < verticesColors.size(); ++i) {
+            if(i % 60 == 0){
+                cout << '\n';
+            }
+            cout << verticesColors[i] << ' ';
         }
     }
 
-    vector<int> getColors(){
-        return verticesColors;
-    }
-
-    void setColors(vector<int> backup){
-        verticesColors = std::move(backup);
-    }
+    //Function used to backup
+    vector<int> getColors();
+    void setColors(vector<int> backup);
 
     void dropColors(){
         verticesColors = vector<int>(vertices.size(), -1);
-    }
-
-    bool isColored(int num){
-        return verticesColors[num] != -1;
     }
 
     bool isZeroNectar(int num){
@@ -58,4 +54,5 @@ public:
         }
         return result;
     }
+
 };

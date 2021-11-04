@@ -47,6 +47,9 @@ vector<pair<int, int>> AlgorithmABC::calculateBeesToSend(vector<int> &destinatio
     vector<pair<int, int>> result;
     int degreeSum = 0;
     for (auto destination : destinations) {
+        if(destination == -1){
+            continue;
+        }
         degreeSum += graphToProcess->getVertex(destination)->neighbors.size();
     }
     float onePart = float(FORAGER_NUM) / float(degreeSum);
@@ -68,13 +71,20 @@ void AlgorithmABC::processVertex(int num, int beeNum) {
         colorVertex(neighborNum);
     }
     colorVertex(num);
+    if(!graphToProcess->isZeroNectar(num)){
+        visitedVertices.erase(num);
+    }
 }
 
 vector<int> AlgorithmABC::sendForagers(vector<pair<int, int>> &destinations) {
     vector<int> newScouts;
     for (auto destination : destinations) {
         processVertex(destination.first, destination.second);
-        newScouts.push_back(moveScoutToRandom());
+        auto newScout = moveScoutToRandom();
+        //If there is unvisited vertices
+        if(newScout != -1){
+            newScouts.push_back(newScout);
+        }
     }
     return newScouts;
 }
