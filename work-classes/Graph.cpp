@@ -46,3 +46,25 @@ vector<int> Graph::getColors() {
 void Graph::setColors(vector<int> backup) {
     verticesColors = std::move(backup);
 }
+
+bool Graph::isZeroNectar(int num) {
+    bool result = true;
+    for (int i = 0; i < vertices[num]->neighbors.size() && result; ++i) {
+        result &= (verticesColors[vertices[num]->neighbors[i]] != -1);
+    }
+    return result;
+}
+
+void Graph::dropColors() {
+    verticesColors = vector<int>(vertices.size(), -1);
+}
+
+void Graph::outputColors() {
+    cout << "Current color scheme:";
+    for (int i = 0; i < verticesColors.size(); ++i) {
+        if(i % 60 == 0){
+            cout << '\n';
+        }
+        cout << verticesColors[i] << ' ';
+    }
+}

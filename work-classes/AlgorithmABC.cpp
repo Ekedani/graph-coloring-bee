@@ -88,3 +88,17 @@ vector<int> AlgorithmABC::sendForagers(vector<pair<int, int>> &destinations) {
     }
     return newScouts;
 }
+
+void AlgorithmABC::resetAlgorithmParameters() {
+    visitedVertices.clear();
+    usedColors.clear();
+    graphToProcess->dropColors();
+}
+
+AlgorithmABC::AlgorithmABC(Graph *graphToProcess) {
+    this->graphToProcess = graphToProcess;
+    this->randomMachine.seed(time(nullptr));
+    for (int i = 0; i < graphToProcess->getVerticesNum(); ++i) {
+        allColors.push_back(i);
+    }
+}

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "helpers/Generator.h"
 #include "helpers/FileData.h"
 #include "work-classes/AlgorithmABC.h"

@@ -43,15 +43,9 @@ private:
 
 public:
     //Initialize graph, generator and color palette
-    explicit AlgorithmABC(Graph *graphToProcess) {
-        this->graphToProcess = graphToProcess;
-        this->randomMachine.seed(time(nullptr));
-        for (int i = 0; i < graphToProcess->getVerticesNum(); ++i) {
-            allColors.push_back(i);
-        }
-    }
+    explicit AlgorithmABC(Graph *graphToProcess);
 
-    //
+
     void runAlgorithm(int iterations) {
         //Used to keep the result from degenerating
         int bestChromaticNumber = 300;
@@ -82,9 +76,5 @@ public:
     //Global algorithm reset. We use it because of random factor
     //A different choice of vertices could improve our results for a bit
     //If it becomes worse than existing - we will use backup
-    void resetAlgorithmParameters() {
-        visitedVertices.clear();
-        usedColors.clear();
-        graphToProcess->dropColors();
-    }
+    void resetAlgorithmParameters();
 };

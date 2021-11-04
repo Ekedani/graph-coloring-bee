@@ -29,30 +29,14 @@ public:
 
     bool isFullyColored();
 
-    void outputColors(){
-        cout << "Current color scheme:";
-        for (int i = 0; i < verticesColors.size(); ++i) {
-            if(i % 60 == 0){
-                cout << '\n';
-            }
-            cout << verticesColors[i] << ' ';
-        }
-    }
+    void outputColors();
 
     //Function used to backup
     vector<int> getColors();
     void setColors(vector<int> backup);
 
-    void dropColors(){
-        verticesColors = vector<int>(vertices.size(), -1);
-    }
+    void dropColors();
 
-    bool isZeroNectar(int num){
-        bool result = true;
-        for (int i = 0; i < vertices[num]->neighbors.size() && result; ++i) {
-            result &= (verticesColors[vertices[num]->neighbors[i]] != -1);
-        }
-        return result;
-    }
+    bool isZeroNectar(int num);
 
 };
