@@ -2,9 +2,9 @@
 
 int AlgorithmABC::moveScoutToRandom() {
     int vertexNum = -1;
-    while (vertexNum == -1 && visitedVertices.size() != graphToProcess->getVerticesNum()){
+    while (vertexNum == -1 && visitedVertices.size() != graphToProcess->getVerticesNum()) {
         int randomAttempt = randomMachine() % graphToProcess->getVerticesNum();
-        if(!visitedVertices.contains(randomAttempt)){
+        if (!visitedVertices.contains(randomAttempt)) {
             vertexNum = randomAttempt;
             visitedVertices.insert(vertexNum);
         }
@@ -13,18 +13,20 @@ int AlgorithmABC::moveScoutToRandom() {
 }
 
 void AlgorithmABC::colorVertex(int num) {
+    //For the first color
     if (usedColors.empty()) {
         usedColors.push_back(allColors[0]);
         //Always successful
         graphToProcess->setColor(num, usedColors[0]);
     } else {
+        //Check colors in usedColors
         for (int color = 0; color < usedColors.size(); ++color) {
             if (graphToProcess->setColor(num, color)) {
                 return;
             }
         }
+        //New color in palette
         usedColors.push_back(allColors[usedColors.size()]);
-        //Also always successful
         graphToProcess->setColor(num, usedColors[usedColors.size() - 1]);
     }
 }
@@ -33,7 +35,7 @@ vector<int> AlgorithmABC::getDestinations() {
     vector<int> destinations;
     for (int i = 0; i < SCOUTS_NUM; ++i) {
         auto dest = moveScoutToRandom();
-        if(dest == -1){
+        if (dest == -1) {
             return destinations;
         }
         destinations.push_back(dest);
@@ -70,7 +72,7 @@ void AlgorithmABC::processVertex(int num, int beeNum) {
 
 vector<int> AlgorithmABC::sendForagers(vector<pair<int, int>> &destinations) {
     vector<int> newScouts;
-    for(auto destination : destinations){
+    for (auto destination : destinations) {
         processVertex(destination.first, destination.second);
         newScouts.push_back(moveScoutToRandom());
     }

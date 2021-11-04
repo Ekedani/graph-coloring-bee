@@ -1,5 +1,6 @@
 #include <iostream>
 #include "helpers/Generator.h"
+#include "helpers/FileData.h"
 #include "work-classes/AlgorithmABC.h"
 
 int main() {
@@ -9,12 +10,9 @@ int main() {
     const int MAX_DEGREE = 30;
 
     auto graphMatrix = Generator::generateGraphMatrix(VERTICES_NUM, MIN_DEGREE,MAX_DEGREE);
+    FileData::saveMatrix(graphMatrix, VERTICES_NUM);
     auto graph = new Graph(graphMatrix, VERTICES_NUM);
     auto algorithm = AlgorithmABC(graph);
-    for (int i = 0; i < 1000; ++i) {
-        algorithm.runAlgorithm();
-        algorithm.resetVisited();
-    }
-    graph->outColors();
+    algorithm.runAlgorithm(1000);
     return 0;
 }

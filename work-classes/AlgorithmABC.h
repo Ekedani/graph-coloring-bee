@@ -20,15 +20,18 @@ private:
     mt19937 randomMachine;
 
     //Returns current scout location
+    //Select random unvisited vertex
     int moveScoutToRandom();
 
     //Set color considering information about usedColors
+    //Use the smallest available color
     void colorVertex(int num);
 
     //Get SCOUTS_NUM destinations
     vector<int> getDestinations();
 
     //Original algorithm use probability, but this modification splits bees proportionally
+    //Calculate number of foragers to each destination
     vector<pair<int, int>> calculateBeesToSend(vector<int> &destinations);
 
     void processVertex(int num, int beeNum);
@@ -37,7 +40,7 @@ private:
 
 public:
 
-    explicit AlgorithmABC(Graph* graphToProcess){
+    explicit AlgorithmABC(Graph *graphToProcess) {
         this->graphToProcess = graphToProcess;
         this->randomMachine.seed(time(nullptr));
         for (int i = 0; i < graphToProcess->getVerticesNum(); ++i) {
@@ -45,16 +48,24 @@ public:
         }
     }
 
-    void runAlgorithm(){
+    void runAlgorithm(int iterations) {
         auto destinations = getDestinations();
-        do{
+        do {
             auto parameters = calculateBeesToSend(destinations);
             destinations = sendForagers(parameters);
-        }while(!graphToProcess->isFullyColored());
+        } while (!graphToProcess->isFullyColored());
+        cout << "Visited: " << visitedVertices.size() << '\n';
+        for (int i = 0; i < iterations && visitedVertices.size() < 300; ++i) {
+            auto parameters = calculateBeesToSend(destinations);
+            destinations = sendForagers(parameters);
+        }
         cout << "Chromatic num: " << usedColors.size() << '\n';
+        graphToProcess->outColors();
     }
 
-    void resetVisited(){
+    void resetAlgo() {
         visitedVertices.clear();
+        usedColors.clear();
+        graphToProcess->dropColors();
     }
 };

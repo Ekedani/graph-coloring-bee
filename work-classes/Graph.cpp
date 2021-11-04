@@ -8,8 +8,8 @@ Graph::Graph(bool **graphMatrix, int verticesNum) {
                 vertices[i]->neighbors.push_back(j);
             }
         }
-        verticesColors.push_back(-1);
     }
+    verticesColors = vector<int>(vertices.size(), -1);
 }
 
 Vertex *Graph::getVertex(int num) {
