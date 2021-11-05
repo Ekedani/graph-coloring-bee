@@ -102,3 +102,29 @@ AlgorithmABC::AlgorithmABC(Graph *graphToProcess) {
         allColors.push_back(i);
     }
 }
+
+void AlgorithmABC::runAlgorithm(int iterations) {
+    //Used to keep the result from degenerating
+    int bestChromaticNumber = 300;
+    vector<int> colorsBackup;
+    for (int i = 0; i < iterations; ++i) {
+        this->resetAlgorithmParameters();
+        auto destinations = getDestinations();
+        do {
+            auto parameters = calculateBeesToSend(destinations);
+            destinations = sendForagers(parameters);
+        } while (!graphToProcess->isFullyColored());
+        //Compare this iteration with best previous
+        if(bestChromaticNumber < this->usedColors.size()){
+            graphToProcess->setColors(colorsBackup);
+        }else{
+            bestChromaticNumber = this->usedColors.size();
+            colorsBackup = graphToProcess->getColors();
+        }
+
+        //Statistics
+        if((i + 1) % 20 == 0 || i == 0){
+            cout << "Iteration #" << i + 1 <<" chromatic num: " << bestChromaticNumber << '\n';
+        }
+    }
+}

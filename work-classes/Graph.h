@@ -31,6 +31,10 @@ public:
 
     void outputColors();
 
+    int getColor(int num){
+        return verticesColors[num];
+    }
+
     //Function used to backup
     vector<int> getColors();
     void setColors(vector<int> backup);
